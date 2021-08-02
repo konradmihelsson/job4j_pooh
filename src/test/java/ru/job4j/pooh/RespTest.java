@@ -12,4 +12,10 @@ public class RespTest {
         Resp resp = new Resp("Some text", "200 OK");
         assertThat(resp.status(), is("200 OK"));
     }
+
+    @Test
+    public void whenAnotherLittleTest() {
+        Resp resp = new Resp("Some text", "200 OK");
+        assertThat(resp.text(), is("Some text"));
+    }
 }
