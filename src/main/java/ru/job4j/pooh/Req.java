@@ -27,7 +27,7 @@ public class Req {
             id = path[3];
         }
         String text = "";
-        if (httpRequestType.equals("POST")) {
+        if ("POST".equals(httpRequestType)) {
             text = contentLines[contentLines.length - 1];
         }
         return new Req(httpRequestType, method, mode, text, id);
