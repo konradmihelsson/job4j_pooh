@@ -2,17 +2,15 @@ package ru.job4j.pooh;
 
 public class Req {
     private final String httpRequestType;
-    private final String method;
-    private final String mode;
-    private final String text;
-    private final String id;
+    private final String poohMode;
+    private final String sourceName;
+    private final String param;
 
-    private Req(String httpRequestType, String method, String mode, String text, String id) {
+    public Req(String httpRequestType, String poohMode, String sourceName, String param) {
         this.httpRequestType = httpRequestType;
-        this.method = method;
-        this.mode = mode;
-        this.text = text;
-        this.id = id;
+        this.poohMode = poohMode;
+        this.sourceName = sourceName;
+        this.param = param;
     }
 
     public static Req of(String content) {
@@ -20,36 +18,31 @@ public class Req {
         String[] firstLine = contentLines[0].split(" ");
         String httpRequestType = firstLine[0];
         String[] path = firstLine[1].split("/");
-        String method = path[1];
-        String mode = path[2];
-        String id = "";
-        if (path.length > 3) {
-            id = path[3];
+        String poohMode = path[1];
+        String sourceName = path[2];
+        String param = "";
+        if ("GET".equals(httpRequestType) && path.length > 3) {
+            param = path[3];
         }
-        String text = "";
         if ("POST".equals(httpRequestType)) {
-            text = contentLines[contentLines.length - 1];
+            param = contentLines[contentLines.length - 1];
         }
-        return new Req(httpRequestType, method, mode, text, id);
+        return new Req(httpRequestType, poohMode, sourceName, param);
     }
 
     public String httpRequestType() {
         return httpRequestType;
     }
 
-    public String method() {
-        return method;
+    public String getPoohMode() {
+        return poohMode;
     }
 
-    public String mode() {
-        return mode;
+    public String getSourceName() {
+        return sourceName;
     }
 
-    public String text() {
-        return text;
-    }
-
-    public String id() {
-        return id;
+    public String getParam() {
+        return param;
     }
 }
